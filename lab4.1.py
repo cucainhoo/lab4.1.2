@@ -1,14 +1,12 @@
 # Cho phép người dùng gửi lên 1 file tần suất. Nạp vào kiểu dictionary và in ra ngoài màn hình
 import streamlit as st
+import ast 
 st.title("Phục dựng đoạn văn từ tần suất từ")
 tep = st.file_uploader("Chọn tệp .txt chứa tần suất từ", type=["txt"])
 if tep:
-    # Đọc file và tạo đoạn văn
-    tu_dien = {
-        dong.split()[0]: int(dong.split()[1]) 
-        for dong in tep.read().decode("utf-8").splitlines() 
-        if len(dong.split()) == 2 and dong.split()[1].isdigit()
-    }
+    # Đọc nội dung file
+    noi_dung = tep.read().decode("utf-8")
+    tu_dien = ast.literal_eval(noi_dung)
     danh_sach_tu = []
     for tu, so_lan in tu_dien.items():
         danh_sach_tu.extend([tu] * so_lan)
